@@ -1,6 +1,6 @@
-import { CusttomError } from "./custom-errors";
+import { CustomError } from "./custom-errors";
 
-export class NotFoundError extends CusttomError {
+export class NotFoundError extends CustomError {
   statusCode = 404;
 
   constructor() {
