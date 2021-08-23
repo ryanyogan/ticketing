@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-  Grid,
-  Button,
-  Input,
-  Spacer,
-  Text,
-  Page,
-  Note,
-  Dot,
-  Card,
-} from "@geist-ui/react";
+import { Grid, Button, Input, Spacer, Text, Page, Card } from "@geist-ui/react";
 import useRequest from "../../hooks/use-request";
 
 const Signup = () => {

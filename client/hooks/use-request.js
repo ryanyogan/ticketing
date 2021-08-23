@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Dot, Note, Spacer } from "@geist-ui/react";
 
-export default ({ url, method, body }) => {
+const useRequest = ({ url, method, body }) => {
   const [errors, setErrors] = useState(null);
 
   const doRequest = async () => {
@@ -29,3 +29,5 @@ export default ({ url, method, body }) => {
 
   return { doRequest, errors };
 };
+
+export default useRequest;
