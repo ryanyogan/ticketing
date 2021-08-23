@@ -1,9 +1,13 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
+import request from "supertest";
+import { app } from "../app";
 
 // @types/node -> ts-node fix
+// Normally this would just be an export; however, since this is scoped to
+// test this is fine :)
 declare global {
-  var signin: () => Promise<string[]>;
+  var getCookie: () => Promise<string[]>;
 }
 
 let mongo: any;
@@ -31,3 +35,17 @@ afterAll(async () => {
   await mongo.stop();
   await mongoose.connection.close();
 });
+
+global.getCookie = async () => {
+  const email = "test@test.com";
+  const password = "password";
+
+  const response = await request(app)
+    .post("/api/users/signup")
+    .send({ email, password })
+    .expect(201);
+
+  const cookie = response.get("Set-Cookie");
+
+  return cookie;
+};
