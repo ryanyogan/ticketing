@@ -3,11 +3,7 @@ import buildClient from "../api/build-client";
 const IndexPage = ({ currentUser }) => {
   console.log(currentUser);
 
-  return (
-    <div>
-      <h1>Index Pages</h1>
-    </div>
-  );
+  return currentUser ? <h1>Signed in</h1> : <h1>Not signed in</h1>;
 };
 
 IndexPage.getInitialProps = async (ctx) => {
