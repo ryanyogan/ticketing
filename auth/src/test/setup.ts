@@ -1,6 +1,11 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 
+// @types/node -> ts-node fix
+declare global {
+  var signin: () => Promise<string[]>;
+}
+
 let mongo: any;
 beforeAll(async () => {
   process.env.JWT_KEY = "asdf"; // TODO: Fix this shit hack
