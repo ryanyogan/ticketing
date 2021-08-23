@@ -1,8 +1,6 @@
 import buildClient from "../api/build-client";
 
 const IndexPage = ({ currentUser }) => {
-  console.log(currentUser);
-
   return currentUser ? <h1>Signed in</h1> : <h1>Not signed in</h1>;
 };
 

@@ -1,12 +1,31 @@
-import { GeistProvider, CssBaseline } from "@geist-ui/react";
+import buildClient from "../api/build-client";
+import "semantic-ui-css/semantic.min.css";
+import Header from "../components/header";
 
-const MyApp = ({ Component, pageProps }) => {
+const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
-    <GeistProvider>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </GeistProvider>
+    <div>
+      <Header currentUser={currentUser} />
+      <Component {...pageProps} currentUser={currentUser} />
+    </div>
   );
 };
 
-export default MyApp;
+AppComponent.getInitialProps = async (appContext) => {
+  const client = buildClient(appContext.ctx);
+  const { data } = await client
+    .get("/api/users/currentuser")
+    .catch((err) => console.error(err));
+
+  let pageProps = {};
+  if (appContext.Component.getInitialProps) {
+    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+  }
+
+  return {
+    pageProps,
+    ...data,
+  };
+};
+
+export default AppComponent;

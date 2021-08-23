@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Dot, Note, Spacer } from "@geist-ui/react";
+import { Message } from "semantic-ui-react";
 
 const useRequest = ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
@@ -17,17 +17,11 @@ const useRequest = ({ url, method, body, onSuccess }) => {
       return response.data;
     } catch (err) {
       setErrors(
-        err.response.data.errors.map((err) => (
-          <div key={err.message}>
-            <Spacer />
-            <Note type="error" label={false} filled>
-              <>
-                <Dot />
-                {err.message}
-              </>
-            </Note>
-          </div>
-        ))
+        <Message
+          error
+          color="red"
+          list={err.response.data.errors.map((err) => err.message)}
+        />
       );
     }
   };
