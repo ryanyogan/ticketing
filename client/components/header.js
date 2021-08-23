@@ -10,6 +10,25 @@ const Header = ({ currentUser }) => {
     router.push(url);
   };
 
+  const links = [
+    !currentUser && { label: "Sign Up", href: "/auth/signup" },
+    !currentUser && { label: "Sign In", href: "/auth/signin" },
+    currentUser && { label: "Sign Out", href: "/auth/signout" },
+  ]
+    .filter((linkConfig) => linkConfig)
+    .map(({ label, href }) => {
+      return (
+        <Menu.Item
+          key={href}
+          as="a"
+          header
+          onClick={(e) => handleClick(e, href)}
+        >
+          {label}
+        </Menu.Item>
+      );
+    });
+
   return (
     <Menu fixed="top">
       <Container>
@@ -17,23 +36,7 @@ const Header = ({ currentUser }) => {
           QikTix
         </Menu.Item>
 
-        {currentUser ? (
-          <Menu.Item
-            position="right"
-            as="a"
-            onClick={(e) => handleClick(e, "/auth/signout")}
-          >
-            Sign Out
-          </Menu.Item>
-        ) : (
-          <Menu.Item
-            position="right"
-            as="a"
-            onClick={(e) => handleClick(e, "/auth/signin")}
-          >
-            Sign In
-          </Menu.Item>
-        )}
+        {links}
       </Container>
     </Menu>
   );
