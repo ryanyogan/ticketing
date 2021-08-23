@@ -26,7 +26,7 @@ const Signup = () => {
 
   return (
     <Page>
-      <Grid.Container gap={2} justify="center" height="100&">
+      <Grid.Container gap={2} justify="center" height="100%">
         <Grid xs={24}>
           <Card shadow width="100%">
             <form onSubmit={handleSubmit}>
